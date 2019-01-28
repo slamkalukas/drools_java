@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import com.sctrcd.buspassws.facts.Decision;
+import com.sctrcd.buspassws.facts.Message;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.ObjectFilter;
@@ -12,9 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.sctrcd.buspassws.facts.BusPass;
-import com.sctrcd.buspassws.facts.Person;
 
 @Service
 public class DecisionService {
@@ -30,38 +29,37 @@ public class DecisionService {
     }
 
     /**
-     * Create a new session, insert a person's details and fire rules to
+     * Create a new session, insert a message's details and fire rules to
      * determine what kind of bus pass is to be issued.
      */
-    public BusPass getBusPass(Person person) {
-        KieSession kieSession = kieContainer.newKieSession("BusPassSession");
-        kieSession.insert(person);
+    public Decision getBusPass(Message message) {
+        KieSession kieSession = kieContainer.newKieSession("aBPMSession");
+        kieSession.insert(message);
         kieSession.fireAllRules();
-        BusPass busPass = findBusPass(kieSession);
+        Decision decision = findBusPass(kieSession);
         kieSession.dispose();
-        return busPass;
+        return decision;
     }
     
     /**
      * Search the {@link KieSession} for bus passes.
      */
-    private BusPass findBusPass(KieSession kieSession) {
+    private Decision findBusPass(KieSession kieSession) {
         
-        // Find all BusPass facts and 1st generation child classes of BusPass.
+        // Find all Decision facts and 1st generation child classes of Decision.
         ObjectFilter busPassFilter = new ObjectFilter() {
-            @Override
+
             public boolean accept(Object object) {
-                if (BusPass.class.equals(object.getClass())) return true;
-                if (BusPass.class.equals(object.getClass().getSuperclass())) return true;
-                return false;
+                if (Decision.class.equals(object.getClass())) return true;
+                return Decision.class.equals(object.getClass().getSuperclass());
             }
         };
 
         // printFactsMessage(kieSession);
         
-        List<BusPass> facts = new ArrayList<BusPass>();
+        List<Decision> facts = new ArrayList<Decision>();
         for (FactHandle handle : kieSession.getFactHandles(busPassFilter)) {
-            facts.add((BusPass) kieSession.getObject(handle));
+            facts.add((Decision) kieSession.getObject(handle));
         }
         if (facts.size() == 0) {
             return null;

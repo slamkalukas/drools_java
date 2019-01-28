@@ -1,27 +1,27 @@
 package com.sctrcd.buspassws.facts;
 
-public class ChildBusPass extends BusPass {
+public class BadDecision extends Decision {
 
-    public ChildBusPass(Person person) {
-        super(person);
+    public BadDecision(Message message) {
+        super(message);
     }
 
     @Override
     public String toString() {
-        return "ChildBusPass: { person=" + getPerson() + " }";
+        return "BadDecision: { person=" + getMessage() + " }";
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) { return true; }
         if (o == null || getClass() != o.getClass()) { return false; }
-        ChildBusPass that = (ChildBusPass) o;
-        return getPerson().equals(that.getPerson());
+        BadDecision that = (BadDecision) o;
+        return getMessage().equals(that.getMessage());
     }
 
     @Override
     public int hashCode() {
-        return getPerson().hashCode();
+        return getMessage().hashCode();
     }
     
 }

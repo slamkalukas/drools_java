@@ -21,7 +21,7 @@ public class BusPassRulesTest {
         }
         this.kieServices = KieServices.Factory.get();
         this.kieContainer = kieServices.getKieClasspathContainer();
-        this.kieSession = kieContainer.newKieSession("BusPassSession");
+        this.kieSession = kieContainer.newKieSession("aBPMSession");
     }
 
     /**

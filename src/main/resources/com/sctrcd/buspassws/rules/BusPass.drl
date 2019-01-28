@@ -3,37 +3,37 @@ package com.sctrcd.busspassws.rules
 import com.sctrcd.buspassws.facts.*;
 
 
-declare IsAdult
-	person: Person
+declare IsOk
+	message: Message
 end
-declare IsChild
-	person: Person
+declare IsBad
+	message: Message
 end
 
 
-rule IsChildPolicy when
-    p : Person( id < 16 )
+rule IsBadPolicy when
+    p : Message( id < 16 )
 then
-    insertLogical( new IsChild( p ) );
+    insertLogical( new IsBad( p ) );
 end
 
-rule IsAdultPolicy when
-    p : Person( id >= 16 )
+rule IsOkPolicy when
+    p : Message( id >= 16 )
 then
-    insertLogical( new IsAdult( p ) );
+    insertLogical( new IsOk( p ) );
 end
 
 
-rule IssueChildBusPass when
-    p : Person()
-    IsChild( person == p )
+rule IssueBadDecision when
+    p : Message()
+    IsBad( message == p )
 then
-    insertLogical( new ChildBusPass( p ) );
+    insertLogical( new BadDecision( p ) );
 end
 
-rule IssueAdultBusPass when
-    p : Person()
-    IsAdult( person == p )
+rule IssueOkDecision when
+    p : Message()
+    IsOk( message == p )
 then
-    insertLogical( new AdultBusPass( p ) );
+    insertLogical( new OkDecision( p ) );
 end

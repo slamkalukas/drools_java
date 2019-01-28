@@ -1,14 +1,13 @@
 package com.sctrcd.buspassws;
 
+import com.sctrcd.buspassws.facts.Decision;
+import com.sctrcd.buspassws.facts.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import com.sctrcd.buspassws.facts.BusPass;
-import com.sctrcd.buspassws.facts.Person;
 
 @RestController
 public class DecisionController {
@@ -22,41 +21,40 @@ public class DecisionController {
         this.decisionService = decisionService;
     }
 
-    @RequestMapping(value = "/buspass", 
-            method = RequestMethod.GET, produces = "application/json")
-    public BusPass getQuestions(
+    @RequestMapping(value = "/makeDecision", method = RequestMethod.GET, produces = "application/json")
+    public Decision getQuestions(
             @RequestParam(required = true) String name,
             @RequestParam(required = true) int age) {
 
-        Person person = new Person(name, age);
+        Message message = new Message(name, age);
 
-        log.debug("Bus pass request received for: " + person);
+        log.debug("New request received for: " + message);
         
-        BusPass busPass = decisionService.getBusPass(person);
+        Decision decision = decisionService.getBusPass(message);
 
-        return busPass;
+        return decision;
     }
 
-    @RequestMapping(value = "/buspass2", method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<BusPass> getQuestions2() {
+    @RequestMapping(value = "/makeDecision2", method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity<Decision> getQuestions2() {
 
-        Person person = new Person("Lukas", 11);
+        Message message = new Message("Lukas", 11);
 
-        log.debug("Bus pass request received for: " + person);
+        log.debug("New request received for: " + message);
 
-        BusPass busPass = decisionService.getBusPass(person);
+        Decision decision = decisionService.getBusPass(message);
 
-        return new ResponseEntity<BusPass>(busPass, HttpStatus.OK);
+        return new ResponseEntity<Decision>(decision, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/buspass3", method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<BusPass> getQuestions3(@RequestBody Person person) {
+    @RequestMapping(value = "/makeDecision3", method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity<Decision> getQuestions3(@RequestBody Message message) {
 
-        log.debug("Bus pass request received for: " + person);
+        log.debug("New request received for: " + message);
 
-        BusPass busPass = decisionService.getBusPass(person);
+        Decision decision = decisionService.getBusPass(message);
 
-        return new ResponseEntity<BusPass>(busPass, HttpStatus.OK);
+        return new ResponseEntity<Decision>(decision, HttpStatus.OK);
     }
 
 }

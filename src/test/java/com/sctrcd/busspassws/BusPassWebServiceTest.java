@@ -2,6 +2,9 @@ package com.sctrcd.busspassws;
 
 import static org.junit.Assert.*;
 
+import com.sctrcd.buspassws.facts.Message;
+import com.sctrcd.buspassws.facts.OkDecision;
+import com.sctrcd.buspassws.facts.BadDecision;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +14,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.sctrcd.buspassws.DecisionApp;
 import com.sctrcd.buspassws.DecisionService;
-import com.sctrcd.buspassws.facts.AdultBusPass;
-import com.sctrcd.buspassws.facts.BusPass;
-import com.sctrcd.buspassws.facts.ChildBusPass;
-import com.sctrcd.buspassws.facts.Person;
+import com.sctrcd.buspassws.facts.Decision;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = DecisionApp.class)
@@ -26,22 +26,22 @@ public class BusPassWebServiceTest {
 
     @Test
     public void shouldIssueAdultBusPass() {
-        Person person = new Person("Steve", 16);
-        BusPass busPass = busPassService.getBusPass(person);
+        Message message = new Message("Steve", 16);
+        Decision decision = busPassService.getBusPass(message);
         
-        System.out.println("Bus pass: " + busPass);
+        System.out.println("Bus pass: " + decision);
         
-        assertEquals(AdultBusPass.class, busPass.getClass());
+        assertEquals(OkDecision.class, decision.getClass());
     }
     
     @Test
     public void shouldIssueChildBusPass() {
-        Person person = new Person("Steve", 15);
-        BusPass busPass = busPassService.getBusPass(person);
+        Message message = new Message("Steve", 15);
+        Decision decision = busPassService.getBusPass(message);
         
-        System.out.println("Bus pass: " + busPass);
+        System.out.println("Bus pass: " + decision);
         
-        assertEquals(ChildBusPass.class, busPass.getClass());
+        assertEquals(BadDecision.class, decision.getClass());
     }
 
 }

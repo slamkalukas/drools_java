@@ -1,15 +1,15 @@
 package com.sctrcd.buspassws.facts;
 
-public class Person {
+public class Message {
 
     private String name;
     private int id;
 
-    public Person() {
+    public Message() {
 
     }
 
-    public Person(String name, int id) {
+    public Message(String name, int id) {
         this.name = name;
         this.id = id;
     }
@@ -32,14 +32,14 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Person: { name=\"" + name + "\"" + ", id=" + id + " }";
+        return "Message: { name=\"" + name + "\"" + ", id=" + id + " }";
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) { return true; }
         if (o == null || getClass() != o.getClass()) { return false; }
-        Person that = (Person) o;
+        Message that = (Message) o;
         return this.id == that.id && this.name.equals(that.name);
     }
 
