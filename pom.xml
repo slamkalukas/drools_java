@@ -101,8 +101,8 @@
 				<configuration>
 					<images>
 						<image>
-							<alias>activiti-rb-custom</alias>
-							<name>activiti-runtime-bundle-custom:${project.version}</name>
+							<alias>aBPM drools</alias>
+							<name>abpm-drools:${project.version}</name>
 							<build>
 								<dockerFileDir>${project.basedir}</dockerFileDir>
 							</build>
