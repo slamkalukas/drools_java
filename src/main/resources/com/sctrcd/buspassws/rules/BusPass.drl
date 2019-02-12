@@ -10,30 +10,14 @@ declare IsBad
 	message: Message
 end
 
-
 rule IsBadPolicy when
     p : Message( id < 16 )
 then
-    insertLogical( new IsBad( p ) );
+    insertLogical( new BadDecision( p ) );
 end
 
 rule IsOkPolicy when
     p : Message( id >= 16 )
 then
-    insertLogical( new IsOk( p ) );
-end
-
-
-rule IssueBadDecision when
-    p : Message()
-    IsBad( message == p )
-then
-    insertLogical( new BadDecision( p ) );
-end
-
-rule IssueOkDecision when
-    p : Message()
-    IsOk( message == p )
-then
-    insertLogical( new OkDecision( p ) );
+    insertLogical( new OkDecision( p )  );
 end
