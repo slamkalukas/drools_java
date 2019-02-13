@@ -56,5 +56,4 @@ public class DecisionController {
 
         return new ResponseEntity<Decision>(decision, HttpStatus.OK);
     }
-
 }

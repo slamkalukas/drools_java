@@ -2,22 +2,39 @@ package com.sctrcd.busspassws.rules
 
 import com.sctrcd.buspassws.facts.*;
 
-
-declare IsOk
+declare Is100
 	message: Message
 end
-declare IsBad
+declare Is200
+	message: Message
+end
+declare Is300
+	message: Message
+end
+declare Is310
 	message: Message
 end
 
-rule IsBadPolicy when
-    p : Message( id < 16 )
+rule Is100Policy when
+    p : Message( id == 1 )
 then
-    insertLogical( new BadDecision( p ) );
+    insertLogical( new TRNSCCFUL100Decision( p )  );
 end
 
-rule IsOkPolicy when
-    p : Message( id >= 16 )
+rule Is200Policy when
+    p : Message( id == 2 )
 then
-    insertLogical( new OkDecision( p )  );
+    insertLogical( new TRNSCCFUL200Decision( p )  );
+end
+
+rule Is300Policy when
+    p : Message( id == 3 )
+then
+    insertLogical( new TRNSCCFUL300Decision( p )  );
+end
+
+rule Is310Policy when
+    p : Message( id == 4 )
+then
+    insertLogical( new TRNSCCFUL310Decision( p )  );
 end

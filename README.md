@@ -13,5 +13,5 @@ Send request to http://127.0.0.1:8080/makeDecision3
 
 {
     "name": "MyNewRequest",
-    "id": 15
+    "id": 1
 }

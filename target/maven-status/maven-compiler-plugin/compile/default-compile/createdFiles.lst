@@ -1,8 +1,0 @@
-com/sctrcd/buspassws/facts/Message.class
-com/sctrcd/buspassws/facts/Decision.class
-com/sctrcd/buspassws/DecisionService.class
-com/sctrcd/buspassws/facts/OkDecision.class
-com/sctrcd/buspassws/facts/BadDecision.class
-com/sctrcd/buspassws/DecisionApp.class
-com/sctrcd/buspassws/DecisionController.class
-com/sctrcd/buspassws/DecisionService$1.class
