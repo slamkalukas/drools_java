@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-drools-svc
+  labels:
+    app: drools
+spec:
+  type: LoadBalancer
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+  selector:
+    app: drools
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-drools
+  labels:
+    app: drools
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: drools
+  template:
+    metadata:
+      labels:
+        app: drools
+    spec:
+      containers:
+      - name: drools
+        image: abpm-drools:1.0.0-SNAPSHOT
+        ports:
+        - containerPort: 8080
